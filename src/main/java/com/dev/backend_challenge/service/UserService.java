@@ -4,6 +4,9 @@ import com.dev.backend_challenge.dto.User.UserCreateDTO;
 import com.dev.backend_challenge.dto.User.UserDTO;
 import com.dev.backend_challenge.dto.User.UserUpdateDTO;
 import com.dev.backend_challenge.entity.User;
+import com.dev.backend_challenge.enums.ErrorEnum;
+import com.dev.backend_challenge.enums.Status;
+import com.dev.backend_challenge.exception.ValidationException;
 import com.dev.backend_challenge.repository.UserRepository;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -11,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -55,5 +59,27 @@ public class UserService {
         User updatedUser =  this.userRepository.save(user);
 
         return this.objectMapper.convertValue(updatedUser, UserDTO.class);
+    }
+
+    public UserDTO delete(String cpf, String activeUserCpf) {
+        User user = this.getUser(cpf);
+
+        user.setStatus(Status.DELETED);
+        user.setDeletedBy(activeUserCpf);
+        user.setDeletedAt(LocalDate.now());
+
+        this.userRepository.save(user);
+
+        return this.objectMapper.convertValue(user, UserDTO.class);
+    }
+
+    private User getUser(String cpf){
+        User user = this.userRepository.findByCpf(cpf);
+
+        if(user == null) throw new ValidationException(ErrorEnum.NOT_FOUND);
+
+        if(user.getStatus() == Status.DELETED) throw new ValidationException((ErrorEnum.DELETED_ENTITY));
+
+        return user;
     }
 }
