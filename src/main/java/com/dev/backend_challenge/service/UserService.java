@@ -38,4 +38,11 @@ public class UserService {
     public List<UserDTO> findAll(){
         return this.userRepository.findAll().stream().map(user -> objectMapper.convertValue(user, UserDTO.class)).collect(Collectors.toList());
     }
+
+    public UserDTO findOne(String cpf){
+        User user = this.getUser(cpf);
+
+        return this.objectMapper.convertValue(user, UserDTO.class);
+    }
+
 }
