@@ -24,4 +24,10 @@ public class AddressService {
 
         return this.objectMapper.convertValue(createdAddress, AddressDTO.class);
     }
+
+    public AddressDTO findOneByUserId(String userId){
+        Address address = this.addressRepository.findByUserId(userId);
+
+        return this.objectMapper.convertValue(address, AddressDTO.class);
+    }
 }

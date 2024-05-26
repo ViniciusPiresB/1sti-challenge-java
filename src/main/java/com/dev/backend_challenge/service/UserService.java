@@ -1,8 +1,10 @@
 package com.dev.backend_challenge.service;
 
+import com.dev.backend_challenge.dto.Address.AddressDTO;
 import com.dev.backend_challenge.dto.User.UserCreateDTO;
 import com.dev.backend_challenge.dto.User.UserDTO;
 import com.dev.backend_challenge.dto.User.UserUpdateDTO;
+import com.dev.backend_challenge.dto.User.UserWithAddressDTO;
 import com.dev.backend_challenge.entity.User;
 import com.dev.backend_challenge.enums.ErrorEnum;
 import com.dev.backend_challenge.enums.Status;
@@ -49,6 +51,18 @@ public class UserService {
         User user = this.getUser(cpf);
 
         return this.objectMapper.convertValue(user, UserDTO.class);
+    }
+
+    public UserWithAddressDTO findUserWithAddress(String cpf){
+        User user = this.getUser(cpf);
+
+        AddressDTO addressDTO = this.addressService.findOneByUserId(user.getId());
+
+        UserWithAddressDTO userWithAddressDTO = this.objectMapper.convertValue(user, UserWithAddressDTO.class);
+
+        userWithAddressDTO.setAddress(addressDTO);
+
+        return userWithAddressDTO;
     }
 
     public UserDTO update(UserUpdateDTO userUpdateDTO, String cpf) throws JsonMappingException {
