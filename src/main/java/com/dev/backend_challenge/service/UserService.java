@@ -9,6 +9,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RequiredArgsConstructor
 @Service
 public class UserService {
@@ -30,5 +33,9 @@ public class UserService {
         addressService.create(userCreateDTO.getAddress(), user);
 
         return this.objectMapper.convertValue(user, UserDTO.class);
+    }
+
+    public List<UserDTO> findAll(){
+        return this.userRepository.findAll().stream().map(user -> objectMapper.convertValue(user, UserDTO.class)).collect(Collectors.toList());
     }
 }
