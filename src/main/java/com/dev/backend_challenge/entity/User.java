@@ -26,6 +26,9 @@ public class User {
 
     @NotBlank
     @Column(unique = true)
+    private String cpf;
+
+    @NotBlank
     private String name;
 
     @NotBlank
