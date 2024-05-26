@@ -1,6 +1,7 @@
 package com.dev.backend_challenge.service;
 
 import com.dev.backend_challenge.dto.Address.AddressDTO;
+import com.dev.backend_challenge.dto.Address.AddressUpdateDTO;
 import com.dev.backend_challenge.dto.User.UserCreateDTO;
 import com.dev.backend_challenge.dto.User.UserDTO;
 import com.dev.backend_challenge.dto.User.UserUpdateDTO;
@@ -63,6 +64,14 @@ public class UserService {
         userWithAddressDTO.setAddress(addressDTO);
 
         return userWithAddressDTO;
+    }
+
+    public AddressDTO updateAddress(String cpf, AddressUpdateDTO addressUpdateDTO) throws JsonMappingException {
+        User user = this.getUser(cpf);
+
+        AddressDTO updatedAddress = this.addressService.updateAddressOfUser(cpf, addressUpdateDTO);
+
+        return updatedAddress;
     }
 
     public UserDTO update(UserUpdateDTO userUpdateDTO, String cpf) throws JsonMappingException {
