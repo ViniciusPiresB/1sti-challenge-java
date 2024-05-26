@@ -15,5 +15,6 @@ public class AddressDTO {
     private String district;
     private String city;
     private String cep;
+    private String state;
     private User user;
 }
