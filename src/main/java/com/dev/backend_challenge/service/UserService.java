@@ -2,8 +2,10 @@ package com.dev.backend_challenge.service;
 
 import com.dev.backend_challenge.dto.User.UserCreateDTO;
 import com.dev.backend_challenge.dto.User.UserDTO;
+import com.dev.backend_challenge.dto.User.UserUpdateDTO;
 import com.dev.backend_challenge.entity.User;
 import com.dev.backend_challenge.repository.UserRepository;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -45,4 +47,13 @@ public class UserService {
         return this.objectMapper.convertValue(user, UserDTO.class);
     }
 
+    public UserDTO update(UserUpdateDTO userUpdateDTO, String cpf) throws JsonMappingException {
+        User user = this.getUser(cpf);
+
+        this.objectMapper.updateValue(user, userUpdateDTO);
+
+        User updatedUser =  this.userRepository.save(user);
+
+        return this.objectMapper.convertValue(updatedUser, UserDTO.class);
+    }
 }
