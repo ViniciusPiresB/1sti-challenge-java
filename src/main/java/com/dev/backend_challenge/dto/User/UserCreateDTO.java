@@ -23,6 +23,10 @@ public class UserCreateDTO {
     @Size(min = 11, max = 11)
     private String cpf;
 
+    @Schema(requiredMode = Schema.RequiredMode.REQUIRED, example = "John Doe")
+    @NotBlank
+    private String name;
+
     @Schema(requiredMode = Schema.RequiredMode.REQUIRED, example = "pass1234")
     @NotBlank
     @Size(min=8)
