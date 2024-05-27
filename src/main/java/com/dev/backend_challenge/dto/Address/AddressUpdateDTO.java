@@ -1,5 +1,6 @@
 package com.dev.backend_challenge.dto.Address;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -9,6 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class AddressUpdateDTO {
     @Schema(requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = "Rua RA 7")
     private String street;
