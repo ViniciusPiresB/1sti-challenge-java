@@ -21,6 +21,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceTest {
@@ -108,5 +111,21 @@ class UserServiceTest {
         verify(objectMapper).convertValue(fakeUser, UserDTO.class);
 
         assertEquals(fakeUserDTO, result);
+    }
+
+    @Test
+    void findAll() {
+        List<User> users = Arrays.asList(fakeUser);
+
+        when(userRepository.findAll()).thenReturn(users);
+        when(objectMapper.convertValue(fakeUser, UserDTO.class)).thenReturn(fakeUserDTO);
+
+        List<UserDTO> result = userService.findAll();
+
+        verify(userRepository, times(1)).findAll();
+        verify(objectMapper).convertValue(fakeUser, UserDTO.class);
+
+        assertEquals(1, result.size());
+        assertEquals(fakeUserDTO, result.get(0));
     }
 }
