@@ -14,7 +14,6 @@ import java.time.LocalDate;
 public class UserWithAddressDTO {
     private String id;
     private String name;
-    private String password;
     private LocalDate birth;
     private Status status = Status.ACTIVE;
     private Integer typeUser = 0;
