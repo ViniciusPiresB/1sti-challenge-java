@@ -2,6 +2,7 @@ package com.dev.backend_challenge.service;
 
 import com.dev.backend_challenge.dto.Address.AddressCreateDTO;
 import com.dev.backend_challenge.dto.Address.AddressDTO;
+import com.dev.backend_challenge.dto.Address.AddressUpdateDTO;
 import com.dev.backend_challenge.dto.User.UserCreateDTO;
 import com.dev.backend_challenge.dto.User.UserDTO;
 import com.dev.backend_challenge.dto.User.UserWithAddressDTO;
@@ -9,6 +10,7 @@ import com.dev.backend_challenge.entity.Address;
 import com.dev.backend_challenge.entity.User;
 import com.dev.backend_challenge.enums.Status;
 import com.dev.backend_challenge.repository.UserRepository;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Builder;
 import org.junit.jupiter.api.BeforeEach;
@@ -57,6 +59,22 @@ class UserServiceTest {
             .number(fakeAddress.getNumber())
             .district(fakeAddress.getDistrict())
             .city(fakeAddress.getCity())
+            .cep(fakeAddress.getCep())
+            .state(fakeAddress.getState())
+            .build();
+
+    private final AddressUpdateDTO fakeAddressUpdateDTO = AddressUpdateDTO.builder()
+            .street("Updated street")
+            .district("Updated district")
+            .city("Updated city")
+            .build();
+
+    private final AddressDTO fakeAddressUpdatedDTO = AddressDTO.builder()
+            .id(fakeAddress.getId())
+            .street(fakeAddressUpdateDTO.getStreet())
+            .number(fakeAddress.getNumber())
+            .district(fakeAddressUpdateDTO.getDistrict())
+            .city(fakeAddressUpdateDTO.getCity())
             .cep(fakeAddress.getCep())
             .state(fakeAddress.getState())
             .build();
@@ -184,4 +202,18 @@ class UserServiceTest {
         assertEquals(fakeUserWithAddressDTO, result);
     }
 
+    @Test
+    void updateAddress() throws JsonMappingException {
+        String cpf = fakeUser.getCpf();
+
+        when(userRepository.findByCpf(cpf)).thenReturn(fakeUser);
+        when(addressService.updateAddressOfUser(cpf, fakeAddressUpdateDTO)).thenReturn(fakeAddressUpdatedDTO);
+
+        AddressDTO result = userService.updateAddress(cpf, fakeAddressUpdateDTO);
+
+        verify(userRepository, times(1)).findByCpf(cpf);
+        verify(addressService, times(1)).updateAddressOfUser(cpf, fakeAddressUpdateDTO);
+
+        assertEquals(fakeAddressUpdatedDTO, result);
+    }
 }
