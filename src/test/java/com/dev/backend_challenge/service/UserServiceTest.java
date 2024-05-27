@@ -91,4 +91,22 @@ class UserServiceTest {
         this.fakeAddress.setUser(this.fakeUser);
     }
 
+    @Test
+    void createUserSuccessfully() {
+        when(objectMapper.convertValue(fakeUserCreateDTO, User.class)).thenReturn(fakeUser);
+        when(encoder.encode(fakeUserCreateDTO.getPassword())).thenReturn("encodedPassword");
+        when(userRepository.save(fakeUser)).thenReturn(fakeUser);
+        when(objectMapper.convertValue(fakeUser, UserDTO.class)).thenReturn(fakeUserDTO);
+
+        String activeUserCpf = "12345678910";
+
+        UserDTO result = userService.create(fakeUserCreateDTO, activeUserCpf);
+
+        verify(objectMapper).convertValue(fakeUserCreateDTO, User.class);
+        verify(encoder).encode(fakeUserCreateDTO.getPassword());
+        verify(userRepository, times(1)).save(fakeUser);
+        verify(objectMapper).convertValue(fakeUser, UserDTO.class);
+
+        assertEquals(fakeUserDTO, result);
+    }
 }
