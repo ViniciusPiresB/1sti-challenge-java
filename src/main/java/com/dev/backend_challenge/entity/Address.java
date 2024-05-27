@@ -31,6 +31,7 @@ public class Address {
     @NotBlank
     private String cep;
 
-    @OneToOne(mappedBy = "address")
+    @OneToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 }
