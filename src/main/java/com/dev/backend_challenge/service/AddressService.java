@@ -11,6 +11,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RequiredArgsConstructor
 @Service
 public class AddressService {
@@ -35,6 +38,10 @@ public class AddressService {
         Address createdAddress = this.addressRepository.save(address);
 
         return this.objectMapper.convertValue(createdAddress, AddressDTO.class);
+    }
+
+    public List<AddressDTO> findAll(){
+        return this.addressRepository.findAll().stream().map(address -> objectMapper.convertValue(address, AddressDTO.class)).collect(Collectors.toList());
     }
 
     public AddressDTO findOneByUserId(String userId){
