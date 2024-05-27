@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -27,7 +28,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final ObjectMapper objectMapper;
     private final AddressService addressService;
-    private final BCryptPasswordEncoder encoder;
+    private final PasswordEncoder encoder;
 
     public UserDTO create(UserCreateDTO userCreateDTO, String activeUserCpf){
         User user = this.objectMapper.convertValue(userCreateDTO, User.class);
