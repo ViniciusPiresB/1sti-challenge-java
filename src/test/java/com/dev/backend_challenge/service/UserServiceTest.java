@@ -1,8 +1,10 @@
 package com.dev.backend_challenge.service;
 
 import com.dev.backend_challenge.dto.Address.AddressCreateDTO;
+import com.dev.backend_challenge.dto.Address.AddressDTO;
 import com.dev.backend_challenge.dto.User.UserCreateDTO;
 import com.dev.backend_challenge.dto.User.UserDTO;
+import com.dev.backend_challenge.dto.User.UserWithAddressDTO;
 import com.dev.backend_challenge.entity.Address;
 import com.dev.backend_challenge.entity.User;
 import com.dev.backend_challenge.enums.Status;
@@ -32,6 +34,8 @@ class UserServiceTest {
     @Mock
     private UserRepository userRepository;
     @Mock
+    private AddressService addressService;
+    @Mock
     private ObjectMapper objectMapper;
     @Mock
     private PasswordEncoder encoder;
@@ -45,6 +49,16 @@ class UserServiceTest {
             .cep("010648957")
             .state("SP")
             .user(null)
+            .build();
+
+    private final AddressDTO fakeAddressDTO = AddressDTO.builder()
+            .id(fakeAddress.getId())
+            .street(fakeAddress.getStreet())
+            .number(fakeAddress.getNumber())
+            .district(fakeAddress.getDistrict())
+            .city(fakeAddress.getCity())
+            .cep(fakeAddress.getCep())
+            .state(fakeAddress.getState())
             .build();
 
     private final User fakeUser = User.builder()
@@ -69,6 +83,15 @@ class UserServiceTest {
             .birth(LocalDate.now())
             .status(Status.ACTIVE)
             .typeUser(0)
+            .build();
+
+    private final UserWithAddressDTO fakeUserWithAddressDTO = UserWithAddressDTO.builder()
+            .id(fakeUserDTO.getId())
+            .name(fakeUserDTO.getName())
+            .birth(fakeUserDTO.getBirth())
+            .status(fakeUserDTO.getStatus())
+            .typeUser(fakeUserDTO.getTypeUser())
+            .address(fakeAddressDTO)
             .build();
 
     private final AddressCreateDTO fakeAddressCreateDTO = AddressCreateDTO.builder()
@@ -143,4 +166,22 @@ class UserServiceTest {
 
         assertEquals(fakeUserDTO, result);
     }
+
+    @Test
+    void findUserWithAddress() {
+        String cpf = fakeUser.getCpf();
+
+        when(userRepository.findByCpf(cpf)).thenReturn(fakeUser);
+        when(addressService.findOneByUserId(anyString())).thenReturn(fakeAddressDTO);
+        when(objectMapper.convertValue(fakeUser, UserWithAddressDTO.class)).thenReturn(fakeUserWithAddressDTO);
+
+        UserWithAddressDTO result = userService.findUserWithAddress(cpf);
+
+        verify(userRepository, times(1)).findByCpf(cpf);
+        verify(addressService, times(1)).findOneByUserId(fakeUser.getId());
+        verify(objectMapper).convertValue(fakeUser, UserWithAddressDTO.class);
+
+        assertEquals(fakeUserWithAddressDTO, result);
+    }
+
 }
