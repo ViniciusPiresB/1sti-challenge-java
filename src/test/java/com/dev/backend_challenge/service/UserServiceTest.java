@@ -128,4 +128,19 @@ class UserServiceTest {
         assertEquals(1, result.size());
         assertEquals(fakeUserDTO, result.get(0));
     }
+
+    @Test
+    void findOne() {
+        String cpf = fakeUser.getCpf();
+
+        when(userRepository.findByCpf(cpf)).thenReturn(fakeUser);
+        when(objectMapper.convertValue(fakeUser, UserDTO.class)).thenReturn(fakeUserDTO);
+
+        UserDTO result = userService.findOne(cpf);
+
+        verify(userRepository, times(1)).findByCpf(cpf);
+        verify(objectMapper).convertValue(fakeUser, UserDTO.class);
+
+        assertEquals(fakeUserDTO, result);
+    }
 }
