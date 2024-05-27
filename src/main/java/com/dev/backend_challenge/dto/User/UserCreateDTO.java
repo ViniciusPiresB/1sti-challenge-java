@@ -5,11 +5,13 @@ import com.dev.backend_challenge.enums.Status;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.br.CPF;
+import org.springframework.format.annotation.NumberFormat;
 
 import java.time.LocalDate;
 
@@ -20,7 +22,6 @@ public class UserCreateDTO {
     @Schema(requiredMode = Schema.RequiredMode.REQUIRED, example = "12345678910")
     @NotBlank
     @CPF
-    @Size(min = 11, max = 11)
     private String cpf;
 
     @Schema(requiredMode = Schema.RequiredMode.REQUIRED, example = "John Doe")
@@ -33,11 +34,13 @@ public class UserCreateDTO {
     private String password;
 
     @Schema(requiredMode = Schema.RequiredMode.REQUIRED, example = "ARRUMAR DEPOIS")
-    @NotBlank
+    @NotNull
+    @Past
     private LocalDate birth;
 
     @Schema(requiredMode = Schema.RequiredMode.REQUIRED, example = "1")
-    @NotBlank
+    @NotNull
+    @NumberFormat
     private Integer typeUser = 0;
 
     @NotNull

@@ -3,10 +3,13 @@ package com.dev.backend_challenge.dto.User;
 import com.dev.backend_challenge.enums.Status;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.NumberFormat;
 
 import java.time.LocalDate;
 
@@ -24,14 +27,16 @@ public class UserUpdateDTO {
     private String password;
 
     @Schema(requiredMode = Schema.RequiredMode.REQUIRED, example = "ARRUMAR DEPOIS")
-    @NotBlank
+    @NotNull
+    @Past
     private LocalDate birth;
 
     @Schema(requiredMode = Schema.RequiredMode.REQUIRED, example = "1")
-    @NotBlank
+    @NotNull
+    @NumberFormat
     private Integer typeUser;
 
     @Schema(requiredMode = Schema.RequiredMode.REQUIRED, example = "ACTIVE | DELETED")
-    @NotBlank
+    @NotNull
     private Status status = Status.ACTIVE;
 }
