@@ -8,6 +8,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.br.CPF;
@@ -16,6 +17,7 @@ import org.springframework.format.annotation.NumberFormat;
 import java.time.LocalDate;
 
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserCreateDTO {
