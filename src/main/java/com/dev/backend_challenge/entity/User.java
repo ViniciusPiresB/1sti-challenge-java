@@ -37,12 +37,12 @@ public class User {
     @NotNull
     private LocalDate birth;
 
-    @NotBlank
+    @NotNull
     @Enumerated(EnumType.STRING)
     private Status status = Status.ACTIVE;
 
     @NumberFormat
-    @NotBlank
+    @NotNull
     private Integer typeUser = 0;
 
     @CreationTimestamp
