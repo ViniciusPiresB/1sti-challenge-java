@@ -40,8 +40,6 @@ public class UserService {
 
         this.userRepository.save(user);
 
-        addressService.create(userCreateDTO.getAddress(), user);
-
         return this.objectMapper.convertValue(user, UserDTO.class);
     }
 

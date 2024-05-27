@@ -31,6 +31,9 @@ public class Address {
     @NotBlank
     private String cep;
 
+    @NotBlank
+    private String state;
+
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
