@@ -14,6 +14,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -31,12 +34,16 @@ class AddressServiceTest {
     private AddressUpdateDTO addressUpdateDTO;
     private Address updatedAddress;
     private AddressDTO updatedAddressDTO;
+    private User user;
 
     @BeforeEach
     void setup(){
         MockitoAnnotations.openMocks(this);
 
-        User user = new User();
+        User user = User.builder()
+                .id("1")
+                .build();
+        this.user = user;
 
         this.address = Address.builder()
                 .id(1)
@@ -104,6 +111,18 @@ class AddressServiceTest {
 
     @Test
     void create() {
+        when(objectMapper.convertValue(addressCreateDTO, Address.class)).thenReturn(address);
+        when(addressRepository.save(any(Address.class))).thenReturn(address);
+        when(objectMapper.convertValue(address, AddressDTO.class)).thenReturn(addressDTO);
+
+        AddressDTO result = addressService.create(addressCreateDTO, this.user);
+
+        verify(objectMapper, times(1)).convertValue(addressCreateDTO, Address.class);
+        verify(addressRepository, times(1)).save(address);
+        verify(objectMapper, times(1)).convertValue(address, AddressDTO.class);
+
+        assertEquals(addressDTO, result);
+        assertEquals(user, address.getUser());
     }
 
     @Test
