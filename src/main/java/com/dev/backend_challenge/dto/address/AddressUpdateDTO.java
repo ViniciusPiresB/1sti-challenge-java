@@ -1,8 +1,7 @@
-package com.dev.backend_challenge.dto.Address;
+package com.dev.backend_challenge.dto.address;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package com.dev.backend_challenge.dto.Address;
+package com.dev.backend_challenge.dto.address;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
