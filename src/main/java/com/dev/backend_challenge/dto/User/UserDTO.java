@@ -1,6 +1,7 @@
 package com.dev.backend_challenge.dto.User;
 
 import com.dev.backend_challenge.enums.Status;
+import com.dev.backend_challenge.enums.TypeUser;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -21,5 +22,5 @@ public class UserDTO {
     private String name;
     private LocalDate birth;
     private Status status = Status.ACTIVE;
-    private Integer typeUser = 0;
+    private TypeUser typeUser;
 }

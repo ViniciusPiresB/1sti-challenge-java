@@ -45,7 +45,7 @@ public class User {
 
     @NumberFormat
     @NotNull
-    private Integer typeUser = 0;
+    private TypeUser typeUser = TypeUser.USER;
 
     @CreationTimestamp
     private LocalDate createdAt;
