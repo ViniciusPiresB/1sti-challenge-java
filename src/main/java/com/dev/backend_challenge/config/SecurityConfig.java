@@ -1,5 +1,6 @@
 package com.dev.backend_challenge.config;
 
+import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -11,10 +12,13 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
+@AllArgsConstructor
 @EnableWebSecurity
 public class SecurityConfig {
+    private SecurityFilter securityFilter;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -28,8 +32,16 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/user/{cpf}").hasRole("USER")
+                        .requestMatchers(HttpMethod.GET, "/user/address/{cpf}").hasRole("USER")
+                        .requestMatchers(HttpMethod.GET, "/user").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/user").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PATCH, "/user/{cpf}").hasRole("USER")
+                        .requestMatchers(HttpMethod.DELETE, "/user/{cpf}").hasRole("ADMIN")
+                        .requestMatchers("/address/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
+                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 
