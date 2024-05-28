@@ -4,6 +4,7 @@ import com.dev.backend_challenge.dto.auth.AuthDTO;
 import com.dev.backend_challenge.dto.auth.LoginResponseDTO;
 import com.dev.backend_challenge.entity.User;
 import com.dev.backend_challenge.service.TokenService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,8 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @AllArgsConstructor
+@Tag(name = "Auth", description = "Authorization Route")
 @RequestMapping("/auth")
-public class AuthController {
+public class AuthController implements IAuthController {
     private TokenService tokenService;
     private AuthenticationManager authenticationManager;
 
