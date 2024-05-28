@@ -1,15 +1,11 @@
-package com.dev.backend_challenge.dto.User;
+package com.dev.backend_challenge.dto.user;
 
+import com.dev.backend_challenge.dto.address.AddressDTO;
 import com.dev.backend_challenge.enums.Status;
-import com.dev.backend_challenge.enums.TypeUser;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.NumberFormat;
 
 import java.time.LocalDate;
 
@@ -17,11 +13,12 @@ import java.time.LocalDate;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDTO {
+public class UserWithAddressDTO {
     private String id;
     private String name;
     private String cpf;
     private LocalDate birth;
     private Status status = Status.ACTIVE;
-    private TypeUser typeUser;
+    private Integer typeUser = 0;
+    private AddressDTO address;
 }

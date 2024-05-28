@@ -1,6 +1,5 @@
-package com.dev.backend_challenge.dto.Address;
+package com.dev.backend_challenge.dto.address;
 
-import com.dev.backend_challenge.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

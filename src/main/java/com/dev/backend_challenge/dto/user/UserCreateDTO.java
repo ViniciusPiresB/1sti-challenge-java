@@ -1,7 +1,6 @@
-package com.dev.backend_challenge.dto.User;
+package com.dev.backend_challenge.dto.user;
 
-import com.dev.backend_challenge.dto.Address.AddressCreateDTO;
-import com.dev.backend_challenge.enums.Status;
+import com.dev.backend_challenge.dto.address.AddressCreateDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

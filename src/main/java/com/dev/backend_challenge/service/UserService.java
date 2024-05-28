@@ -1,11 +1,11 @@
 package com.dev.backend_challenge.service;
 
-import com.dev.backend_challenge.dto.Address.AddressDTO;
-import com.dev.backend_challenge.dto.Address.AddressUpdateDTO;
-import com.dev.backend_challenge.dto.User.UserCreateDTO;
-import com.dev.backend_challenge.dto.User.UserDTO;
-import com.dev.backend_challenge.dto.User.UserUpdateDTO;
-import com.dev.backend_challenge.dto.User.UserWithAddressDTO;
+import com.dev.backend_challenge.dto.address.AddressDTO;
+import com.dev.backend_challenge.dto.address.AddressUpdateDTO;
+import com.dev.backend_challenge.dto.user.UserCreateDTO;
+import com.dev.backend_challenge.dto.user.UserDTO;
+import com.dev.backend_challenge.dto.user.UserUpdateDTO;
+import com.dev.backend_challenge.dto.user.UserWithAddressDTO;
 import com.dev.backend_challenge.entity.User;
 import com.dev.backend_challenge.enums.ErrorEnum;
 import com.dev.backend_challenge.enums.Status;
@@ -14,7 +14,6 @@ import com.dev.backend_challenge.repository.UserRepository;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

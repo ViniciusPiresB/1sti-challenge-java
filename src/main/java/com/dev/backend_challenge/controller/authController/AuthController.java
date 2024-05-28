@@ -1,4 +1,4 @@
-package com.dev.backend_challenge.controller.AuthController;
+package com.dev.backend_challenge.controller.authController;
 
 import com.dev.backend_challenge.dto.auth.AuthDTO;
 import com.dev.backend_challenge.dto.auth.LoginResponseDTO;

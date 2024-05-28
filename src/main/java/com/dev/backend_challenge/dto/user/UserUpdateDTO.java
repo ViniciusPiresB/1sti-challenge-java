@@ -1,10 +1,8 @@
-package com.dev.backend_challenge.dto.User;
+package com.dev.backend_challenge.dto.user;
 
 import com.dev.backend_challenge.enums.Status;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;

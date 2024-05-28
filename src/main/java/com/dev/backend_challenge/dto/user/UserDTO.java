@@ -1,7 +1,7 @@
-package com.dev.backend_challenge.dto.User;
+package com.dev.backend_challenge.dto.user;
 
-import com.dev.backend_challenge.dto.Address.AddressDTO;
 import com.dev.backend_challenge.enums.Status;
+import com.dev.backend_challenge.enums.TypeUser;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,12 +13,11 @@ import java.time.LocalDate;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserWithAddressDTO {
+public class UserDTO {
     private String id;
     private String name;
     private String cpf;
     private LocalDate birth;
     private Status status = Status.ACTIVE;
-    private Integer typeUser = 0;
-    private AddressDTO address;
+    private TypeUser typeUser;
 }

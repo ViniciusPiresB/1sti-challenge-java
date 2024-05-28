@@ -1,9 +1,9 @@
-package com.dev.backend_challenge.controller.UserController;
+package com.dev.backend_challenge.controller.userController;
 
-import com.dev.backend_challenge.dto.User.UserCreateDTO;
-import com.dev.backend_challenge.dto.User.UserDTO;
-import com.dev.backend_challenge.dto.User.UserUpdateDTO;
-import com.dev.backend_challenge.dto.User.UserWithAddressDTO;
+import com.dev.backend_challenge.dto.user.UserCreateDTO;
+import com.dev.backend_challenge.dto.user.UserDTO;
+import com.dev.backend_challenge.dto.user.UserUpdateDTO;
+import com.dev.backend_challenge.dto.user.UserWithAddressDTO;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -12,7 +12,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
