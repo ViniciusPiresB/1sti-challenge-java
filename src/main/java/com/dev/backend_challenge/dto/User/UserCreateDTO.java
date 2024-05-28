@@ -35,12 +35,12 @@ public class UserCreateDTO {
     @Size(min=8)
     private String password;
 
-    @Schema(requiredMode = Schema.RequiredMode.REQUIRED, example = "ARRUMAR DEPOIS")
+    @Schema(requiredMode = Schema.RequiredMode.REQUIRED, example = "2000-07-15")
     @NotNull
     @Past
     private LocalDate birth;
 
-    @Schema(requiredMode = Schema.RequiredMode.REQUIRED, example = "1")
+    @Schema(requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull
     @NumberFormat
     private Integer typeUser = 0;

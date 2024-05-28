@@ -26,7 +26,7 @@ public class UserUpdateDTO {
     @Size(min=8)
     private String password;
 
-    @Schema(requiredMode = Schema.RequiredMode.REQUIRED, example = "ARRUMAR DEPOIS")
+    @Schema(requiredMode = Schema.RequiredMode.REQUIRED, example = "2000-07-15")
     @Past
     private LocalDate birth;
 
