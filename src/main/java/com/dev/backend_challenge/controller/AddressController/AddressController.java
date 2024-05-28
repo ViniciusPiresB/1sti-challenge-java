@@ -4,6 +4,7 @@ import com.dev.backend_challenge.dto.Address.AddressDTO;
 import com.dev.backend_challenge.dto.Address.AddressUpdateDTO;
 import com.dev.backend_challenge.service.AddressService;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -14,11 +15,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RequestMapping("/address")
+@Tag(name = "Address", description = "Controller of addresses")
 @CrossOrigin
 @AllArgsConstructor
 @RestController
 @Validated
-public class AddressController {
+public class AddressController implements IAddressController {
     private final AddressService addressService;
 
     @PatchMapping("/{userId}")
