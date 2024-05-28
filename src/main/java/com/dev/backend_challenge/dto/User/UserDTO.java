@@ -20,6 +20,7 @@ import java.time.LocalDate;
 public class UserDTO {
     private String id;
     private String name;
+    private String cpf;
     private LocalDate birth;
     private Status status = Status.ACTIVE;
     private TypeUser typeUser;
