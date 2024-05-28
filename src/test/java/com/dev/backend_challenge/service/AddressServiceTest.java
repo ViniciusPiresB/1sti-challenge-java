@@ -127,6 +127,16 @@ class AddressServiceTest {
 
     @Test
     void findAll() {
+        when(addressRepository.findAll()).thenReturn(Arrays.asList(address));
+        when(objectMapper.convertValue(address, AddressDTO.class)).thenReturn(addressDTO);
+
+        List<AddressDTO> result = addressService.findAll();
+
+        verify(addressRepository, times(1)).findAll();
+        verify(objectMapper, times(1)).convertValue(address, AddressDTO.class);
+
+        assertEquals(1, result.size());
+        assertEquals(addressDTO, result.getFirst());
     }
 
     @Test
