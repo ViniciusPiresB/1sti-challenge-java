@@ -9,6 +9,7 @@ import com.dev.backend_challenge.dto.User.UserWithAddressDTO;
 import com.dev.backend_challenge.entity.Address;
 import com.dev.backend_challenge.entity.User;
 import com.dev.backend_challenge.enums.Status;
+import com.dev.backend_challenge.enums.TypeUser;
 import com.dev.backend_challenge.repository.UserRepository;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -85,7 +86,7 @@ class UserServiceTest {
             .password("encodedPassword")
             .birth(LocalDate.now())
             .status(Status.ACTIVE)
-            .typeUser(0)
+            .typeUser(TypeUser.USER)
             .createdAt(LocalDate.now())
             .createdBy("Admin")
             .updatedAt(null)
@@ -100,7 +101,7 @@ class UserServiceTest {
             .name("Test User 1")
             .birth(LocalDate.now())
             .status(Status.ACTIVE)
-            .typeUser(0)
+            .typeUser(TypeUser.USER)
             .build();
 
     private final UserWithAddressDTO fakeUserWithAddressDTO = UserWithAddressDTO.builder()
@@ -126,7 +127,7 @@ class UserServiceTest {
             .cpf("70031242546")
             .password("encodedPassword")
             .birth(LocalDate.now())
-            .typeUser(0)
+            .typeUser(TypeUser.USER)
             .address(fakeAddressCreateDTO)
             .build();
 
