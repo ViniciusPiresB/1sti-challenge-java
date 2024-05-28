@@ -1,10 +1,9 @@
-package com.dev.backend_challenge.dto.User;
+package com.dev.backend_challenge.dto.user;
 
 import com.dev.backend_challenge.enums.Status;
+import com.dev.backend_challenge.enums.TypeUser;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -26,13 +25,12 @@ public class UserUpdateDTO {
     @Size(min=8)
     private String password;
 
-    @Schema(requiredMode = Schema.RequiredMode.REQUIRED, example = "ARRUMAR DEPOIS")
+    @Schema(requiredMode = Schema.RequiredMode.REQUIRED, example = "2000-07-15")
     @Past
     private LocalDate birth;
 
     @Schema(requiredMode = Schema.RequiredMode.REQUIRED, example = "1")
-    @NumberFormat
-    private Integer typeUser;
+    private TypeUser typeUser;
 
     @Schema(requiredMode = Schema.RequiredMode.REQUIRED, example = "ACTIVE | DELETED")
     private Status status = Status.ACTIVE;

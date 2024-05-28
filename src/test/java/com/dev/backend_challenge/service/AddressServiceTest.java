@@ -1,8 +1,8 @@
 package com.dev.backend_challenge.service;
 
-import com.dev.backend_challenge.dto.Address.AddressCreateDTO;
-import com.dev.backend_challenge.dto.Address.AddressDTO;
-import com.dev.backend_challenge.dto.Address.AddressUpdateDTO;
+import com.dev.backend_challenge.dto.address.AddressCreateDTO;
+import com.dev.backend_challenge.dto.address.AddressDTO;
+import com.dev.backend_challenge.dto.address.AddressUpdateDTO;
 import com.dev.backend_challenge.entity.Address;
 import com.dev.backend_challenge.entity.User;
 import com.dev.backend_challenge.repository.AddressRepository;

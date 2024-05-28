@@ -1,7 +1,8 @@
-package com.dev.backend_challenge.dto.User;
+package com.dev.backend_challenge.dto.user;
 
-import com.dev.backend_challenge.dto.Address.AddressCreateDTO;
+import com.dev.backend_challenge.dto.address.AddressCreateDTO;
 import com.dev.backend_challenge.enums.Status;
+import com.dev.backend_challenge.enums.TypeUser;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -35,15 +36,15 @@ public class UserCreateDTO {
     @Size(min=8)
     private String password;
 
-    @Schema(requiredMode = Schema.RequiredMode.REQUIRED, example = "ARRUMAR DEPOIS")
+    @Schema(requiredMode = Schema.RequiredMode.REQUIRED, example = "2000-07-15")
     @NotNull
     @Past
     private LocalDate birth;
 
-    @Schema(requiredMode = Schema.RequiredMode.REQUIRED, example = "1")
+    @Schema(requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull
     @NumberFormat
-    private Integer typeUser = 0;
+    private TypeUser typeUser = TypeUser.USER;
 
     @NotNull
     private AddressCreateDTO address;
