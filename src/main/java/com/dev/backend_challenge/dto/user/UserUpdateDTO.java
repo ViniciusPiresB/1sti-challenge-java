@@ -1,6 +1,7 @@
 package com.dev.backend_challenge.dto.user;
 
 import com.dev.backend_challenge.enums.Status;
+import com.dev.backend_challenge.enums.TypeUser;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Past;
@@ -29,8 +30,7 @@ public class UserUpdateDTO {
     private LocalDate birth;
 
     @Schema(requiredMode = Schema.RequiredMode.REQUIRED, example = "1")
-    @NumberFormat
-    private Integer typeUser;
+    private TypeUser typeUser;
 
     @Schema(requiredMode = Schema.RequiredMode.REQUIRED, example = "ACTIVE | DELETED")
     private Status status = Status.ACTIVE;
