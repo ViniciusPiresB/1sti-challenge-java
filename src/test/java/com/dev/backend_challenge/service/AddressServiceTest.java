@@ -141,5 +141,14 @@ class AddressServiceTest {
 
     @Test
     void findOneByUserId() {
+        when(addressRepository.findByUserId(anyString())).thenReturn(address);
+        when(objectMapper.convertValue(address, AddressDTO.class)).thenReturn(addressDTO);
+
+        AddressDTO result = addressService.findOneByUserId("1");
+
+        verify(addressRepository, times(1)).findByUserId("1");
+        verify(objectMapper, times(1)).convertValue(address, AddressDTO.class);
+
+        assertEquals(addressDTO, result);
     }
 }
