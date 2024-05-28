@@ -2,6 +2,7 @@ package com.dev.backend_challenge.dto.User;
 
 import com.dev.backend_challenge.dto.Address.AddressDTO;
 import com.dev.backend_challenge.enums.Status;
+import com.dev.backend_challenge.enums.TypeUser;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,6 +19,6 @@ public class UserWithAddressDTO {
     private String name;
     private LocalDate birth;
     private Status status = Status.ACTIVE;
-    private Integer typeUser = 0;
+    private TypeUser typeUser;
     private AddressDTO address;
 }
