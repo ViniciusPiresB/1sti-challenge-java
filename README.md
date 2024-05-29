@@ -75,6 +75,11 @@ Para rodar a aplicação sem Docker, siga os passos abaixo:
    ```
 4. Acesse a aplicação em `http://localhost:3000`
 
+## Primeiro acesso
+
+Assim que a aplicação estiver em execução, acesse o endpoint http://localhost:3000/user/first-user/get para obter o primeiro usuário do sistema com privilégios máximos.
+A partir deste usuário, será possivel gerar tokens na rota de login para realizar todas as operações presentes na aplicação.
+
 ## Documentação Swagger
 
 Para visualizar a documentação Swagger, acesse `http://localhost:3000/swagger-ui.html`
