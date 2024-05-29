@@ -1,9 +1,6 @@
 package com.dev.backend_challenge.controller.userController;
 
-import com.dev.backend_challenge.dto.user.UserCreateDTO;
-import com.dev.backend_challenge.dto.user.UserDTO;
-import com.dev.backend_challenge.dto.user.UserUpdateDTO;
-import com.dev.backend_challenge.dto.user.UserWithAddressDTO;
+import com.dev.backend_challenge.dto.user.*;
 import com.dev.backend_challenge.service.UserService;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -34,6 +31,11 @@ public class UserController implements IUserController {
     @GetMapping("/{cpf}")
     public ResponseEntity<UserDTO> findOne(@PathVariable String cpf){
         return new ResponseEntity<>(this.userService.findOne(cpf), HttpStatus.OK);
+    }
+
+    @GetMapping("/first-user/get")
+    public ResponseEntity<UserWithPassDTO> getFirstUser(){
+        return new ResponseEntity<>(this.userService.firstAccess(), HttpStatus.CREATED);
     }
 
     @GetMapping("/address/{cpf}")
