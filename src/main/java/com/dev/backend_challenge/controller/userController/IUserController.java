@@ -1,9 +1,6 @@
 package com.dev.backend_challenge.controller.userController;
 
-import com.dev.backend_challenge.dto.user.UserCreateDTO;
-import com.dev.backend_challenge.dto.user.UserDTO;
-import com.dev.backend_challenge.dto.user.UserUpdateDTO;
-import com.dev.backend_challenge.dto.user.UserWithAddressDTO;
+import com.dev.backend_challenge.dto.user.*;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -39,6 +36,16 @@ public interface IUserController {
             }
     )
     ResponseEntity<UserDTO> findOne(@PathVariable String cpf);
+
+    @Operation(summary = "Get First User of System.", description = "Get First User of System With ROOT privileges")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(responseCode = "201", description = "Return user"),
+                    @ApiResponse(responseCode = "401", content = @Content(schema = @Schema(hidden = true)), description = "First user was already created."),
+                    @ApiResponse(responseCode = "500", content = @Content(schema = @Schema(hidden = true)), description = "Unhandled exception.")
+            }
+    )
+    public ResponseEntity<UserWithPassDTO> getFirstUser();
 
     @Operation(summary = "Get User by cpf with address", description = "Get user by cpf with address in database")
     @ApiResponses(
