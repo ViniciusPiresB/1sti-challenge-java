@@ -19,6 +19,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -34,6 +37,11 @@ class UserServiceTest {
     private UserService userService;
     @Mock
     private UserRepository userRepository;
+    @Mock
+    private Authentication authentication;
+
+    @Mock
+    private SecurityContext securityContext;
     @Mock
     private AddressService addressService;
     @Mock
@@ -140,10 +148,11 @@ class UserServiceTest {
         when(encoder.encode(fakeUserCreateDTO.getPassword())).thenReturn("encodedPassword");
         when(userRepository.save(fakeUser)).thenReturn(fakeUser);
         when(objectMapper.convertValue(fakeUser, UserDTO.class)).thenReturn(fakeUserDTO);
+        SecurityContextHolder.setContext(securityContext);
+        when(securityContext.getAuthentication()).thenReturn(authentication);
+        when(authentication.getName()).thenReturn(fakeUserDTO.getCpf());
 
-        String activeUserCpf = "12345678910";
-
-        UserDTO result = userService.create(fakeUserCreateDTO, activeUserCpf);
+        UserDTO result = userService.create(fakeUserCreateDTO);
 
         verify(objectMapper).convertValue(fakeUserCreateDTO, User.class);
         verify(encoder).encode(fakeUserCreateDTO.getPassword());

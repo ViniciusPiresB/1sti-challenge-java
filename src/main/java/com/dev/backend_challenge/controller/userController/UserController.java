@@ -23,9 +23,7 @@ public class UserController implements IUserController {
 
     @PostMapping()
     public ResponseEntity<UserDTO> create(@Valid @RequestBody UserCreateDTO userCreateDTO){
-        String cpfOfActiveUser = "12345678910";
-
-        return new ResponseEntity<>(this.userService.create(userCreateDTO, cpfOfActiveUser), HttpStatus.CREATED);
+        return new ResponseEntity<>(this.userService.create(userCreateDTO), HttpStatus.CREATED);
     }
 
     @GetMapping("/{cpf}")
@@ -55,8 +53,6 @@ public class UserController implements IUserController {
 
     @DeleteMapping("/{cpf}")
     public ResponseEntity<UserDTO> remove(@PathVariable String cpf){
-        String activeUserCpf = "12345678910";
-
-        return new ResponseEntity<>(this.userService.delete(cpf, activeUserCpf), HttpStatus.OK);
+        return new ResponseEntity<>(this.userService.delete(cpf), HttpStatus.OK);
     }
 }
