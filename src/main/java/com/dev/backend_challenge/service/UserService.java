@@ -11,6 +11,7 @@ import com.dev.backend_challenge.exception.ValidationException;
 import com.dev.backend_challenge.repository.UserRepository;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
@@ -30,6 +31,7 @@ public class UserService {
     private final AddressService addressService;
     private final PasswordEncoder encoder;
 
+    @Transactional
     public UserDTO create(UserCreateDTO userCreateDTO){
         User user = this.objectMapper.convertValue(userCreateDTO, User.class);
 
@@ -89,6 +91,7 @@ public class UserService {
         return userWithAddressDTO;
     }
 
+    @Transactional
     public AddressDTO updateAddress(String cpf, AddressUpdateDTO addressUpdateDTO) throws JsonMappingException {
         User user = this.getUser(cpf);
 
@@ -97,6 +100,7 @@ public class UserService {
         return updatedAddress;
     }
 
+    @Transactional
     public UserDTO update(UserUpdateDTO userUpdateDTO, String cpf) throws JsonMappingException {
         User user = this.getUser(cpf);
 
@@ -110,6 +114,7 @@ public class UserService {
         return this.objectMapper.convertValue(updatedUser, UserDTO.class);
     }
 
+    @Transactional
     public UserDTO delete(String cpf) {
         User user = this.getUser(cpf);
 
