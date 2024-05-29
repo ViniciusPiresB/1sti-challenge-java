@@ -8,6 +8,7 @@ import com.dev.backend_challenge.entity.User;
 import com.dev.backend_challenge.repository.AddressRepository;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,7 @@ public class AddressService {
     private final AddressRepository addressRepository;
     private final ObjectMapper objectMapper;
 
+    @Transactional
     public AddressDTO updateAddressOfUser(String userId, AddressUpdateDTO addressUpdateDTO) throws JsonMappingException {
         Address address = this.addressRepository.findByUserId(userId);
 
