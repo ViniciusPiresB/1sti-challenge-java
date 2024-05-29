@@ -2,18 +2,17 @@ package com.dev.backend_challenge.service;
 
 import com.dev.backend_challenge.dto.address.AddressDTO;
 import com.dev.backend_challenge.dto.address.AddressUpdateDTO;
-import com.dev.backend_challenge.dto.user.UserCreateDTO;
-import com.dev.backend_challenge.dto.user.UserDTO;
-import com.dev.backend_challenge.dto.user.UserUpdateDTO;
-import com.dev.backend_challenge.dto.user.UserWithAddressDTO;
+import com.dev.backend_challenge.dto.user.*;
 import com.dev.backend_challenge.entity.User;
 import com.dev.backend_challenge.enums.ErrorEnum;
 import com.dev.backend_challenge.enums.Status;
+import com.dev.backend_challenge.enums.TypeUser;
 import com.dev.backend_challenge.exception.ValidationException;
 import com.dev.backend_challenge.repository.UserRepository;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -50,6 +49,28 @@ public class UserService {
         User user = this.getUser(cpf);
 
         return this.objectMapper.convertValue(user, UserDTO.class);
+    }
+
+    public UserWithPassDTO firstAccess(){
+        User user = this.userRepository.findByCpf("44441015046");
+
+        if(user != null) throw new BadCredentialsException("First user was already created.");
+
+        UserCreateDTO firstUserCreateDTO = UserCreateDTO.builder()
+                .name("ROOT USER")
+                .cpf("44441015046")
+                .password("12345678")
+                .birth(LocalDate.now())
+                .typeUser(TypeUser.ROOT)
+                .address(null)
+                .build();
+
+        UserDTO firstUserDTO = this.create(firstUserCreateDTO, firstUserCreateDTO.getCpf());
+
+        UserWithPassDTO firstUserWithPassDTO = this.objectMapper.convertValue(firstUserDTO, UserWithPassDTO.class);
+        firstUserWithPassDTO.setPassword(firstUserCreateDTO.getPassword());
+
+        return firstUserWithPassDTO;
     }
 
     public UserWithAddressDTO findUserWithAddress(String cpf){
