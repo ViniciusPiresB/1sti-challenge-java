@@ -13,6 +13,8 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -28,12 +30,14 @@ public class UserService {
     private final AddressService addressService;
     private final PasswordEncoder encoder;
 
-    public UserDTO create(UserCreateDTO userCreateDTO, String activeUserCpf){
+    public UserDTO create(UserCreateDTO userCreateDTO){
         User user = this.objectMapper.convertValue(userCreateDTO, User.class);
 
         String encodedPassword = this.encoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
 
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String activeUserCpf = authentication.getName();
         user.setCreatedBy(activeUserCpf);
 
         this.userRepository.save(user);
@@ -65,7 +69,7 @@ public class UserService {
                 .address(null)
                 .build();
 
-        UserDTO firstUserDTO = this.create(firstUserCreateDTO, firstUserCreateDTO.getCpf());
+        UserDTO firstUserDTO = this.create(firstUserCreateDTO);
 
         UserWithPassDTO firstUserWithPassDTO = this.objectMapper.convertValue(firstUserDTO, UserWithPassDTO.class);
         firstUserWithPassDTO.setPassword(firstUserCreateDTO.getPassword());
@@ -96,6 +100,9 @@ public class UserService {
     public UserDTO update(UserUpdateDTO userUpdateDTO, String cpf) throws JsonMappingException {
         User user = this.getUser(cpf);
 
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        user.setUpdatedBy(authentication.getName());
+
         this.objectMapper.updateValue(user, userUpdateDTO);
 
         User updatedUser =  this.userRepository.save(user);
@@ -103,11 +110,14 @@ public class UserService {
         return this.objectMapper.convertValue(updatedUser, UserDTO.class);
     }
 
-    public UserDTO delete(String cpf, String activeUserCpf) {
+    public UserDTO delete(String cpf) {
         User user = this.getUser(cpf);
 
         user.setStatus(Status.DELETED);
-        user.setDeletedBy(activeUserCpf);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        user.setDeletedBy(authentication.getName());
+
         user.setDeletedAt(LocalDate.now());
 
         this.userRepository.save(user);
